@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Too Much Cake!</title>
+    <link rel="shortcut icon" href="images/sprites/strawberryCake.png" type="image/x-icon">
+    <style>
+        body {
+            background-image: url("images/bg/game.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            height: 100vh;
+            margin: 0;
+        }
+        
+        img {
+            image-rendering: pixelated;
+            position: absolute;
+        }
+
+        p {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: xx-large;
+            margin: 0;
+            position: absolute;
+        }
+
+        div {
+            background-image: url("images/sprites/menu.png");
+            background-size: contain;
+            display: none;
+            height: 96vh;
+            image-rendering: pixelated;
+            left: 48vw;
+            position: absolute;
+            top: 4vh;
+            width: 86vh;
+            z-index: 1;
+        }
+
+        #chatBox {
+            bottom: 69vh;
+            left: 6vw;
+            right: 59vw;
+            top: 6vh;
+        }
+
+        #player {
+            height: 26vh;
+            width: 12vw;
+        }
+
+        #cashier {
+            height: 32vh;
+            left: 66vw;
+            top: 42vh;
+            width: 10vw;
+        }
+
+        #open {
+            display: none;
+            height: 6vh;
+            left: 32vw;
+            top: 40vh;
+            width: 8vw;
+        }
+        
+        #close {
+            display: none;
+            height: 6vh;
+            left: 31vw;
+            top: 40vh;
+            width: 9vw;
+            z-index: 1;
+        }
+
+        #bakeBar {
+            height: 3vh;
+            left: 8vw;
+            width: 0vw;
+            top: 48vh;
+        }
+
+        #bakeText {
+            display: none;
+            left: 19vw;
+            top: 48vh;
+        }
+
+        #coin {
+            height: 8vh;
+            left: 6.75vw;
+            top: 53vh;
+            width: 4.5vw;
+        }
+
+        #coinBox {
+            height: 8vh;
+            left: 13vw;
+            top: 56vh;
+            width: 30vw;
+        }
+
+        #strawCake {
+            height: 9vh;
+            left: 6vw;
+            top: 64vh;
+            width: 6vw;
+        }
+
+        #strawBox {
+            height: 8vh;
+            left: 13vw;
+            top: 67vh;
+            width: 30vw;
+        }
+
+        #chocoCake {
+            height: 9vh;
+            left: 6vw;
+            top: 75vh;
+            width: 6vw;
+        }
+ 
+        #chocoBox {
+            height: 8vh;
+            left: 13vw;
+            top: 78vh;
+            width: 30vw;
+        }
+
+        #creamCake {
+            height: 9vh;
+            left: 6vw;
+            top: 86vh;
+            width: 6vw;
+        }
+
+        #creamBox {
+            height: 8vh;
+            left: 13vw;
+            top: 89vh;
+            width: 30vw;
+        }
+
+        .text {
+            height: 10vh;
+            left: 9vw;
+            width: 20vw;
+        }
+
+        .button {
+            height: 10vh;
+            left: 29vw;
+            width: 10vw;
+        }
+
+        ._0 {
+            top: 23vh;
+        }
+
+        ._1 {
+            top: 42vh;
+        }
+
+        ._2 {
+            top: 61vh;
+        }
+
+        #time {
+            left: 68vw;
+            top: 75vh;
+        }
+
+        #win {
+            display: none;
+            height: 75vh;
+            left: 29vw;
+            top: 20vh;
+            width: 45vw;
+        }
+
+        #lose {
+            display: none;
+            height: 75vh;
+            left: 29vw;
+            top: 20vh;
+            width: 45vw;
+        }
+    </style>
+</head>
+<body>
+    <p id="chatBox"></p>
+    <img id="player" src="images/sprites/mrBaker.png" alt="Mister Baker">
+    <img id="cashier" src="images/sprites/msCashier.png" alt="Miss Cashier">
+    <img id="open" src="images/sprites/open.png" alt="Open Button">
+    <img id="close" src="images/sprites/close.png" alt="Close Button">
+    <img id="bakeBar" src="images/sprites/green.png" alt="Baking progress">
+    <p id="bakeText">Baking...</p>
+    <img id="coin" src="images/sprites/coin.png" alt="Coin">
+    <p id="coinBox"></p>
+    <img id="strawCake" src="images/sprites/strawberryCake.png" alt="Strawberry Cake">
+    <p id="strawBox"></p>
+    <img id="chocoCake" src="images/sprites/chocoCake.png" alt="Chocolate Cake">
+    <p id="chocoBox"></p>
+    <img id="creamCake" src="images/sprites/creamCake.png" alt="Cream Cake">
+    <p id="creamBox"></p>
+    <div id="oven">
+        <p class="text _0"></p>
+        <img class="button _0" src="images/sprites/buy.png" alt="Buy Button" onclick="ovenUpgrade(0)">
+        <p class="text _1"></p>
+        <img class="button _1" src="images/sprites/buy.png" alt="Buy Button" onclick="ovenUpgrade(1)">
+        <p class="text _2"></p>
+        <img class="button _2" src="images/sprites/buy.png" alt="Buy Button" onclick="ovenUpgrade(2)">
+    </div>
+    <div id="cooker">
+        <p class="text _0"></p>
+        <img class="button _0" src="images/sprites/buy.png" alt="Buy Button" onclick="cookerUpgrade(0)">
+        <p class="text _1"></p>
+        <img class="button _1" src="images/sprites/buy.png" alt="Buy Button" onclick="cookerUpgrade(1)">
+        <p class="text _2"></p>
+        <img class="button _2" src="images/sprites/buy.png" alt="Buy Button" onclick="cookerUpgrade(2)">
+    </div>
+    <div id="seller">
+        <p class="text _0"></p>
+        <img class="button _0" src="images/sprites/max.png" alt="Sell Button" onclick="sell(0)">
+        <p class="text _1"></p>
+        <img class="button _1" src="images/sprites/max.png" alt="Sell Button" onclick="sell(1)">
+        <p class="text _2"></p>
+        <img class="button _2" src="images/sprites/max.png" alt="Sell Button" onclick="sell(2)">
+    </div>
+    <b><p id="time">1:00:00</p></b>
+    <img id="win" src="images/sprites/win.png" alt="Win">
+    <img id="lose" src="images/sprites/lose.png" alt="Lose">
+    <script>
+        var xPos = 51
+        var yPos = 44
+        var up = false
+        var left = false
+        var down = false
+        var right = false
+        var bake = false
+        var coins = 0
+        var cakes = [0, 0, 0]
+        var bakeTime = 0
+        var bakeSpeed = 1
+        var ovenUpgrades = [0, 0, 0]
+        var cookerUpgrades = [0, 0, 0]
+        var stage = 0
+        var lines = [
+            "Hi! I'm Miss Cashier! You're the new baker here right? That's great! Would you mind baking a cake?",
+            "That's great but we need an order for 1000 Strawberry Cakes. In an HOUR? Get baking!",
+            "That's the spirit! Now give them to me so that I can sell them for coins.",
+            "Nice! you'll see that you can upgrade those appliances for faster cake making.",
+            "Well, I'll let you run the shop for now. See ya!",
+            "By the way, using some magic, cakes can bake other cakes. Chocolate Cakes can make Cream Cakes and Strawberry Cakes can make Chocolate Cakes.",
+            "Wow! You can make Strawberry Cakes! We're on the final stretch now."
+        ]
+        var ovenUpgradeText = [
+            [
+                "Cream Cake baking speed is 2x as fast. Cost: ",
+                "Cream Cake baking speed is 3x as fast. Cost: ",
+                "Cream Cake baking speed is 4x as fast. Cost: ",
+                "Cream Cake baking speed is 5x as fast. Cost: ",
+                "Cream Cake baking speed is 6x as fast. Cost: ",
+            ],
+            [
+                "Chocolate Cake baking speed is 2x as fast. Cost: ",
+                "Chocolate Cake baking speed is 3x as fast. Cost: ",
+                "Chocolate Cake baking speed is 4x as fast. Cost: ",
+                "Chocolate Cake baking speed is 5x as fast. Cost: ",
+                "Chocolate Cake baking speed is 6x as fast. Cost: ",
+            ],
+            [
+                "Strawberry Cake baking speed is 2x as fast. Cost: ",
+                "Strawberry Cake baking speed is 3x as fast. Cost: ",
+                "Strawberry Cake baking speed is 4x as fast. Cost: ",
+                "Strawberry Cake baking speed is 5x as fast. Cost: ",
+                "Strawberry Cake baking speed is 6x as fast. Cost: ",
+            ],
+        ]
+        var cookerUpgradeText = [
+            [
+                "Cream Cakes cost 2x more. Cost: ",
+                "Cream Cakes cost 5x more. Cost: ",
+                "Cream Cakes cost 10x more. Cost: "
+            ],
+            [
+                "Be able to hand-bake Chocolate Cakes. Cost: ",
+                "Chocolate Cakes cost 2x more. Cost: ",
+                "Chocolate Cakes cost 5x more. Cost: ",
+                "Chocolate Cakes cost 10x more. Cost: "
+            ],
+            [
+                "Be able to hand-bake Strawberry Cakes. Cost: ",
+                "Strawberry Cakes cost 2x more. Cost: ",
+                "Strawberry Cakes cost 5x more. Cost: ",
+                "Strawberry Cakes cost 10x more. Cost: "
+            ]
+        ]
+        var sellerText = [
+            "Sell a Cream Cake. Price: ",
+            "Sell a Chocolate Cake. Price: ",
+            "Sell a Strawberry Cake. Price: "
+        ]
+        var upgradeCosts = [
+            [
+                [100, 200, 400, 800, 1600],
+                [10000, 30000, 90000, 270000, 810000],
+                [1000000, 4000000, 16000000, 64000000, 256000000]
+            ],
+            [
+                [2000, 5000, 10000],
+                [100000, 200000, 500000, 1000000],
+                [10000000, 20000000, 50000000, 100000000]
+            ]
+        ]
+        var cakePrices = [10, 1000, 100000]
+        var timeEnd = Math.floor(new Date().getTime() / 1000) + 3600
+
+        function close(id) {
+            return function () {
+                document.getElementById("close").style.display = "none"
+                document.getElementById(id).style.display = "none"
+            }
+        }
+
+        function open(id) {
+            return function () {
+                document.getElementById(id).style.display = "block"
+                document.getElementById("close").onclick = close(id)
+                document.getElementById("close").style.display = "block"
+                let tag = id == "oven" ? 0 : id == "cooker" ? 1 : 2
+                let texts = [ovenUpgradeText, cookerUpgradeText, sellerText][tag]
+                for (let i = 0; i < 3; i++) {
+                    document.getElementsByClassName("_" + i)[tag * 2].innerHTML = tag == 2 ? texts[i] + cakePrices[i] + " coins" : [ovenUpgrades, cookerUpgrades][tag][i] >= texts[i].length ? "Upgrade Completed!" : texts[i][[ovenUpgrades, cookerUpgrades][tag][i]] + upgradeCosts[tag][i][[ovenUpgrades, cookerUpgrades][tag][i]] + " coins"
+                }
+            }
+        }
+
+        function ovenUpgrade(i) {
+            if (ovenUpgrades[i] >= ovenUpgradeText[i].length) {
+                return 0
+            } if (i == 0) {
+                if (ovenUpgrades[i] == 0 && coins >= 100) {
+                    bakeSpeed = 2
+                    coins -= 100
+                    ovenUpgrades[i]++
+                } else if (ovenUpgrades[i] == 1 && coins >= 200) {
+                    bakeSpeed = 3
+                    coins -= 200
+                    ovenUpgrades[i]++
+                } else if (ovenUpgrades[i] == 2 && coins >= 400) {
+                    bakeSpeed = 4
+                    coins -= 400
+                    ovenUpgrades[i]++
+                } else if (ovenUpgrades[i] == 3 && coins >= 800) {
+                    bakeSpeed = 5
+                    coins -= 800
+                    ovenUpgrades[i]++
+                } else if (ovenUpgrades[i] == 4 && coins >= 1600) {
+                    bakeSpeed = 6
+                    coins -= 1600
+                    ovenUpgrades[i]++
+                }
+            } if (i == 1) {
+                if (ovenUpgrades[i] == 0 && coins >= 10000) {
+                    bakeSpeed = 2
+                    coins -= 10000
+                    ovenUpgrades[i]++
+                } else if (ovenUpgrades[i] == 1 && coins >= 30000) {
+                    bakeSpeed = 3
+                    coins -= 30000
+                    ovenUpgrades[i]++
+                } else if (ovenUpgrades[i] == 2 && coins >= 90000) {
+                    bakeSpeed = 4
+                    coins -= 90000
+                    ovenUpgrades[i]++
+                } else if (ovenUpgrades[i] == 3 && coins >= 270000) {
+                    bakeSpeed = 5
+                    coins -= 270000
+                    ovenUpgrades[i]++
+                } else if (ovenUpgrades[i] == 4 && coins >= 810000) {
+                    bakeSpeed = 6
+                    coins -= 810000
+                    ovenUpgrades[i]++
+                }
+            } if (i == 2) {
+                if (ovenUpgrades[i] == 0 && coins >= 1000000) {
+                    bakeSpeed = 2
+                    coins -= 1000000
+                    ovenUpgrades[i]++
+                } else if (ovenUpgrades[i] == 1 && coins >= 4000000) {
+                    bakeSpeed = 3
+                    coins -= 4000000
+                    ovenUpgrades[i]++
+                } else if (ovenUpgrades[i] == 2 && coins >= 16000000) {
+                    bakeSpeed = 4
+                    coins -= 16000000
+                    ovenUpgrades[i]++
+                } else if (ovenUpgrades[i] == 3 && coins >= 64000000) {
+                    bakeSpeed = 5
+                    coins -= 64000000
+                    ovenUpgrades[i]++
+                } else if (ovenUpgrades[i] == 4 && coins >= 256000000) {
+                    bakeSpeed = 6
+                    coins -= 256000000
+                    ovenUpgrades[i]++
+                }
+            }
+            close("oven")()
+            open("oven")()
+        }
+
+        function cookerUpgrade(i) {
+            if (cookerUpgrades[i] >= cookerUpgradeText[i].length) {
+                return 0
+            } if (i == 0) {
+                if (cookerUpgrades[i] == 0 && coins >= 2000) {
+                    cakePrices[0] = 20
+                    coins -= 2000
+                    cookerUpgrades[i]++
+                } else if (cookerUpgrades[i] == 1 && coins >= 5000) {
+                    cakePrices[0] = 50
+                    coins -= 5000
+                    cookerUpgrades[i]++
+                } else if (cookerUpgrades[i] == 2 && coins >= 10000) {
+                    cakePrices[0] = 100
+                    coins -= 10000
+                    cookerUpgrades[i]++
+                }
+            } if (i == 1) {
+                if (cookerUpgrades[i] == 0 && coins >= 100000) {
+                    bakeSpeed = 1
+                    coins -= 100000
+                    cookerUpgrades[i]++
+                } else if (cookerUpgrades[i] == 1 && coins >= 200000) {
+                    cakePrices[1] = 2000
+                    coins -= 200000
+                    cookerUpgrades[i]++
+                } else if (cookerUpgrades[i] == 2 && coins >= 500000) {
+                    cakePrices[1] = 5000
+                    coins -= 500000
+                    cookerUpgrades[i]++
+                } else if (cookerUpgrades[i] == 3 && coins >= 1000000) {
+                    cakePrices[1] = 10000
+                    coins -= 1000000
+                    cookerUpgrades[i]++
+                } 
+            } if (i == 2) {
+                if (cookerUpgrades[i] == 0 && coins >= 10000000) {
+                    bakeSpeed = 1
+                    coins -= 10000000
+                    cookerUpgrades[i]++
+                } else if (cookerUpgrades[i] == 1 && coins >= 20000000) {
+                    cakePrices[2] = 200000
+                    coins -= 20000000
+                    cookerUpgrades[i]++
+                } else if (cookerUpgrades[i] == 2 && coins >= 50000000) {
+                    cakePrices[2] = 500000
+                    coins -= 50000000
+                    cookerUpgrades[i]++
+                } else if (cookerUpgrades[i] == 3 && coins >= 100000000) {
+                    cakePrices[2] = 1000000
+                    coins -= 100000000
+                    cookerUpgrades[i]++
+                } 
+            }
+            close("cooker")()
+            open("cooker")()
+        }
+
+        function sell(i) {
+            coins += cakePrices[i] * cakes[i]
+            cakes[i] = 0
+        }
+
+        function win() {
+            document.getElementById("win").style.display = "block"
+            alert("Thanks for the great time! Before you go, always remember, you can never have Too Much Cake!")
+        }
+        
+        function lose() {
+            document.getElementById("lose").style.display = "block"
+            alert("Took you too long...")
+        }
+
+        function gameUpdate() {
+            document.getElementById("open").style.display = "none"
+            if ([cakes[0] >= 1, cakes[0] >= 10, coins >= 100, coins >= 10000, cookerUpgrades[1] >= 1, cookerUpgrades[2] >= 1, false][stage]) {
+                stage++
+            } if (xPos <= 53 && yPos <= 15) {
+                document.getElementById("open").onclick = open("oven")
+                document.getElementById("open").style.display = "block"
+            } if (xPos >= 75 && yPos <= 14) {
+                document.getElementById("open").onclick = open("cooker")
+                document.getElementById("open").style.display = "block"
+            } if (xPos >= 56 && xPos <= 66 && yPos >= 39) {
+                document.getElementById("open").onclick = open("seller")
+                document.getElementById("open").style.display = "block"
+            } if (up) {
+                yPos = Math.max(yPos - 1, 8);
+            } if (left) {
+                xPos = Math.max(xPos - 1, 51);
+            } if (down) {
+                yPos = Math.min(yPos + 1, 44);
+            } if (right) {
+                xPos = Math.min(xPos + 1, 83);
+            } if (bake) {
+                bakeTime += bakeSpeed
+                document.getElementById("bakeText").style.display = "block"
+            } if (bakeTime > 30) {
+                cakes[Math.max(stage - 4, 0)]++
+                bakeTime = 0
+                document.getElementById("bakeText").style.display = "none"
+            }
+            cakes[0] += cakes[1]
+            cakes[1] += cakes[2]
+            document.getElementById("chatBox").innerHTML = lines[stage]
+            document.getElementById("bakeBar").style.width = bakeTime + "vw"
+            document.getElementById("coinBox").innerHTML = coins
+            document.getElementById("strawBox").innerHTML = cakes[2]
+            document.getElementById("chocoBox").innerHTML = cakes[1]
+            document.getElementById("creamBox").innerHTML = cakes[0]
+            document.getElementById("player").style.left = xPos + "vw"
+            document.getElementById("player").style.top = yPos + "vh"
+            let countdown = (timeEnd - Math.floor(new Date().getTime() / 1000)) % 3600
+            document.getElementById("time").innerHTML = Math.floor(countdown / 60) + ":" + countdown % 60
+            if (countdown < 0) {
+                clearInterval(game)
+                lose()
+            } if (cakes[2] >= 1000) {
+                clearInterval(game)
+                win()
+            }
+        }
+
+        document.addEventListener("keydown", function (e) {if (e.keyCode % 32 == 23) {up = true} if (e.keyCode % 32 == 1) {left = true} if (e.keyCode % 32 == 19) {down = true} if (e.keyCode % 32 == 4) {right = true} if (e.keyCode % 32 == 0) {bake = true}})
+        document.addEventListener("keyup", function (e) {if (e.keyCode % 32 == 23) {up = false} if (e.keyCode % 32 == 1) {left = false} if (e.keyCode % 32 == 19) {down = false} if (e.keyCode % 32 == 4) {right = false} if (e.keyCode % 32 == 0) {bakeTime = 0; bake = false; document.getElementById("bakeText").style.display = "none"}})
+
+        var game = setInterval(gameUpdate, 80)
+
+    </script>
+</body>
+</html>
