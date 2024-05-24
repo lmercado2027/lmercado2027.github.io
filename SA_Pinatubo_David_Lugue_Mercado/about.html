@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> About Us </title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');*{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(#4ce565 0%, #094914 100%);
+            font-family: "Bungee", sans-serif;
+        }
+        .wrapper{
+            background-color: #fff;
+            width: 500px;
+            border-radius: 16px;
+            padding: 20px;
+            transition: 0.5s;
+            cursor: pointer;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .wrapper:hover{
+            box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.6);
+        }
+        h2{
+            text-align: center;
+        }
+        hr{
+            width:100px;
+            margin: 10px auto;
+        }
+        .members{
+            display: flex;
+        }
+        .team-mem{
+            margin: 8px;
+        }
+        img{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 10px;
+        }
+        h4{
+            font-size: 18px;
+        }
+        p{
+            font-size: 14px;
+            margin: 7px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <h2> Members </h2>
+        <hr>
+        <div class="member">
+            <div class="team-mem">
+                <img src="Pics/ethanpfp.jpg">
+                <h4> Ethan </h4>
+                <p> Maker of forms, helped html <br> layout and design </p>
+            </div>
+
+            <div class="team-mem">
+                <img src="Pics/enzopfp.png">
+                <h4> Enzo </h4>
+                <p> Created all javascripts, did rest <br> of the html pages </p>
+            </div>
+
+            <div class="team-mem">
+                <img src="Pics/aiyzpfp.png">
+                <h4> Aiyz </h4>
+                <p> Responsible for design, helped a bit <br> in html </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

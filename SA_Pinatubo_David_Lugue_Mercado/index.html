@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title> Village Shopping </title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');*{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        body{
+            background-attachment: scroll;
+            background-image: url("images/445556772_428365876792514_3721371266771797816_n.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+        .item-container{
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 100px;
+            font-family: "Bungee", sans-serif;
+        }
+        .item{
+            width: 22%;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            margin: 20px;
+            transition: 0.5s
+        }
+        .item:hover{
+            box-shadow: 0 0 11px rgba(33,33,33,.2);
+        }
+        .item-content{
+            padding: 16px;
+        }
+        .item-content h3{
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        .item-content h4{
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+        .sales img{
+            width: 100px;
+            height: 200px;
+            object-fit: cover;
+        }
+        .button {
+            background-color: #14b052; /* Green */
+            border: none;
+            border-radius: 5%;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        #navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        #navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        #navbar a.active {
+            background-color: #04AA6D;
+            color: white;
+        }
+       </style>
+
+
+</head>
+<body>
+    <div id="navbar">
+        <a onclick="change('armorer')">Armorer</a>
+        <a onclick="change('farmer')">Farmer</a>
+        <a onclick="change('fletcher')">Fletcher</a>
+        <a onclick="change('leatherworker')">Letherworker</a>
+        <a href="about.html">About</a>
+    </div>
+
+    <div id="armorer">
+        <div class="sales">
+            <img src="images/Plains_Armorer.webp">
+        </div>
+        <div class="item-container">
+            <div class="item">
+                <img src="images/Iron_Leggings_(item)_JE2_BE2.png">
+                <div class="item-content">
+                    <h3>Iron Leggings</h3>
+                    <p>Cost: 7 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Iron Leggings', 7)">Add to Cart</button>
+            </div> 
+            
+            <div class="item">
+                <img src="images/Iron_Boots_(item)_JE1_BE1.png">
+                <div class="item-content">
+                    <h3>Iron Boots</h3>
+                    <p>Cost: 4 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Iron Boots', 4)">Add to Cart</button>
+            </div>
+            
+            <div class="item">
+                <img src="images/Iron_Helmet_(item)_JE2_BE2.png">
+                <div class="item-content">
+                    <h3>Iron Helmet</h3>
+                    <p>Cost: 5 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Iron Helmet', 5)">Add to Cart</button>
+            </div>
+
+        </div>   
+        
+        <div class="item-container">
+            <div class="item">
+                <img src="images/Iron_Chestplate_(item)_JE2_BE2.png">
+                <div class="item-content">
+                    <h3>Iron Chestplate</h3>
+                    <p>Cost: 9 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Iron Chestplate', 9)">Add to Cart</button>
+            </div> 
+
+            <div class="item">
+                <img src="images/Chainmail_Boots_(item)_JE2_BE2.png">
+                <div class="item-content">
+                    <h3>Chainmail Boots</h3>
+                    <p>Cost: 1 emerald</p>
+                </div>
+                <button class="button" onclick="add('Chainmail Boots', 1)">Add to Cart</button>
+            </div>
+            
+            <div class="item">
+                <img src="images/Chainmail_Leggings_(item)_JE2_BE2.png">
+                <div class="item-content">
+                    <h3>Chainmail Leggings</h3>
+                    <p>Cost: 3 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Chainmail Leggings', 3)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="farmer" hidden>
+        <div class="sales">
+            <img src="images/Plains_Farmer.png">
+        </div>
+        <div class="item-container">
+            <div class="item">
+                <img src="images/Bread_JE3_BE3.png">
+                <div class="item-content">
+                    <h3>Bread</h3>
+                    <p>Cost: 1 emerald</p>
+                </div>
+                <button class="button" onclick="add('Bread', 1)">Add to Cart</button>
+            </div> 
+            
+            <div class="item">
+                <img src="images/Pumpkin_Pie_JE2_BE2.png">
+                <div class="item-content">
+                    <h3>Pumpkin Pie</h3>
+                    <p>Cost: 1 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Pumpkin Pie', 1)">Add to Cart</button>
+            </div>
+            
+            <div class="item">
+                <img src="images/Apple_JE3_BE3.png">
+                <div class="item-content">
+                    <h3>Apple</h3>
+                    <p>Cost: 1 emerald</p>
+                </div>
+                <button class="button" onclick="add('Apple', 1)">Add to Cart</button>
+            </div>
+
+        </div>   
+        
+        <div class="item-container">
+            <div class="item">
+                <img src="images/Cookie_JE2_BE2.png">
+                <div class="item-content">
+                    <h3>Cookie</h3>
+                    <p>Cost: 3 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Cookie', 1)">Add to Cart</button>
+            </div> 
+
+            <div class="item">
+                <img src="images/Cake_(item)_JE3_BE3.png">
+                <div class="item-content">
+                    <h3>Cake</h3>
+                    <p>Cost: 1 emerald</p>
+                </div>
+                <button class="button" onclick="add('Cake', 1)">Add to Cart</button>
+            </div>
+            
+            <div class="item">
+                <img src="images/Golden_Carrot_JE4_BE2.png">
+                <div class="item-content">
+                    <h3>Golden Carrot</h3>
+                    <p>Cost: 3 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Golden Carrot', 3)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="fletcher" hidden>
+        <div class="sales">
+            <img src="images/Plains_Fletcher.png">
+        </div>
+        <div class="item-container">
+            <div class="item">
+                <img src="images/Arrow_(item)_JE1_BE1.png">
+                <div class="item-content">
+                    <h3>Arrow</h3>
+                    <p>Cost: 1 emerald</p>
+                </div>
+                <button class="button" onclick="add('Arrow', 1)">Add to Cart</button>
+            </div> 
+            
+            <div class="item">
+                <img src="images/Flint_JE3_BE3.png">
+                <div class="item-content">
+                    <h3>Flint</h3>
+                    <p>Cost: 1 emerald</p>
+                </div>
+                <button class="button" onclick="add('Flint', 1)">Add to Cart</button>
+            </div>
+            
+            <div class="item">
+                <img src="images/Bow_JE2_BE1.png">
+                <div class="item-content">
+                    <h3>Bow</h3>
+                    <p>Cost: 2 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Bow', 2)">Add to Cart</button>
+            </div>
+
+        </div>   
+        
+        <div class="item-container">
+            <div class="item">
+                <img src="images/Crossbow.png">
+                <div class="item-content">
+                    <h3>Crossbow</h3>
+                    <p>Cost: 3 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Crossbow', 3)">Add to Cart</button>
+            </div> 
+
+            <div class="item">
+                <img src="images/Enchanted_Bow.gif">
+                <div class="item-content">
+                    <h3>Enchanted Bow</h3>
+                    <p>Cost: 7 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Enchanted Bow', 7)">Add to Cart</button>
+            </div>
+            
+            <div class="item">
+                <img src="images/Enchanted_Crossbow.gif">
+                <div class="item-content">
+                    <h3>Enchanted Crossbow</h3>
+                    <p>Cost: 8 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Enchanted Crossbow', 8)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="leatherworker" hidden>
+        <div class="sales">
+            <img src="images/Plains_Leatherworker.png">
+        </div>
+        <div class="item-container">
+            <div class="item">
+                <img src="images/Leather_Pants_(item)_JE4_BE3.png">
+                <div class="item-content">
+                    <h3>Leather Pants</h3>
+                    <p>Cost: 3 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Leather Pants', 3)">Add to Cart</button>
+            </div> 
+            
+            <div class="item">
+                <img src="images/Leather_Tunic_(item)_JE4_BE3.png">
+                <div class="item-content">
+                    <h3>Leather Tunic</h3>
+                    <p>Cost: 7 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Leather Tunic', 7)">Add to Cart</button>
+            </div>
+            
+            <div class="item">
+                <img src="images/Leather_Cap_(item)_JE4_BE3.png">
+                <div class="item-content">
+                    <h3>Leather Cap</h3>
+                    <p>Cost: 5 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Leather Cap', 5)">Add to Cart</button>
+            </div>
+
+        </div>   
+        
+        <div class="item-container">
+            <div class="item">
+                <img src="images/Leather_Boots_(item)_JE4_BE3.png">
+                <div class="item-content">
+                    <h3>Leather Boots</h3>
+                    <p>Cost: 4 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Leather Boots', 4)">Add to Cart</button>
+            </div> 
+
+            <div class="item">
+                <img src="images/Leather_Horse_Armor_(item)_JE2.png">
+                <div class="item-content">
+                    <h3>Leather Horse Armor</h3>
+                    <p>Cost: 6 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Leather Horse Armor', 6)">Add to Cart</button>
+            </div>
+            
+            <div class="item">
+                <img src="images/Saddle_JE2_BE2.png">
+                <div class="item-content">
+                    <h3>Saddle</h3>
+                    <p>Cost: 6 emeralds</p>
+                </div>
+                <button class="button" onclick="add('Saddle', 6)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+        <div class="item-container">
+            <div class="item">
+                <div class="item-content" id="cart">
+                    <h3>Cart</h3><p>Price: 0 Emeralds</p>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-content">
+                    <p>Name:</p><br>
+                    <input type="text" name="cust_name" id="cust_name"><br><br>
+                    <p>Address:</p><br>
+                    <input type="text" name="cust_addr" id="cust_addr"><br><br>
+                    <p>Email:</p><br>
+                    <input type="text" name="cust_email" id="cust_email"><br><br>
+                    <button class="button" onclick="buy()">Purchase Item(s)</button>
+                </div>
+            </div>
+        </div>
+    <script>
+        var items = []
+        var total = 0
+
+        function change(name) {
+            $("#armorer").hide()
+            $("#farmer").hide()
+            $("#fletcher").hide()
+            $("#leatherworker").hide()
+            $(`#${name}`).show()
+        }
+
+        function display() {
+            $("#cart").html(`<h3>Items</h3><p>Price: ${total} Emerald${total == 1 ? "" : "s"}</p>`)
+            $.each(items, function(i, item) {$("#cart").append(`<hr><h4>${item.prod_name}</h4><p>${item.prod_price} Emerald${item.prod_price == 1 ? "" : "s"}<\p><br><p style="color: #ff0000" onclick="remove(${i})">Remove Item</p>`)})
+        }
+
+        function add(name, price) {
+            items.push({prod_name: name, prod_price: price})
+            total += price
+            display()
+        }
+
+        function remove(id) {
+            total -= items[id]["prod_price"]
+            items.splice(id, 1)
+            display()
+        }
+
+        function buy() {
+            go = confirm("Buy all the items in the cart?")
+            if (go) {
+                window.location.href = "http://sirjm.infinityfreeapp.com/checkout.php?cust_name=" + encodeURIComponent($("#cust_name").val()) + "&cust_addr=" + encodeURIComponent($("#cust_addr").val()) + "&cust_email=" + encodeURIComponent($("#cust_email").val()) + "&cust_order=" + encodeURIComponent(JSON.stringify(items))
+            }
+        }
+
+        window.addEventListener("unload", function() {
+            localStorage.setItem("villageritems", window.btoa(JSON.stringify(items)))
+            localStorage.setItem("villagertotal", window.btoa(total.toString()))
+        })
+
+        if (localStorage.getItem("villageritems")) {
+            items = JSON.parse(window.atob(localStorage.getItem("villageritems")))
+            total = items.length < 1 ? 0 : parseInt(window.atob(localStorage.getItem("villagertotal")))
+            display()
+        }
+    </script>
+
+</body>
+</html>
